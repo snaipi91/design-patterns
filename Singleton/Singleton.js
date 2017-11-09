@@ -1,4 +1,4 @@
-const Singelton = (function() {
+const Singelton = (() => {
     let instance;
   
     function createInstance() {
@@ -15,7 +15,7 @@ const Singelton = (function() {
       }
     }
   
-    return function() {
+    return () => {
         if(!instance) { 
           instance = createInstance();
         }
