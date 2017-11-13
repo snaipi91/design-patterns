@@ -6,8 +6,9 @@ function Board(background) {
   this.element.style['backgroundColor'] = background;
 }
 
-Board.prototype.getObservableElement = function() {
-  
+Board.prototype.getObservableElement = function(data) {
+  console.log('subscribe');
+  this.element.innerHTML = data;
 }
 
 Board.prototype.render = function(root) {
@@ -19,6 +20,7 @@ function Observable() {
 }
 
 Observable.prototype.subscribe = function(subscriber) {
+  console.log('sub', this.subscribers)
   this.subscribers.push(subscriber)
 }
 
@@ -28,7 +30,7 @@ Observable.prototype.unscribe = function() {
 
 Observable.prototype.publish = function(data) {
   this.subscribers.forEach((subscriber) => {
-    console.log(subscriber);
+    subscriber.getObservableElement(data);
   })
 }
 
@@ -41,5 +43,6 @@ board2.render(root);
 board3.render(root);
 
 let observable = new Observable();
-observable.subscribe(Board);
-observable.publish();
+observable.subscribe(board1);
+observable.subscribe(board2);
+observable.publish('паблиш');
